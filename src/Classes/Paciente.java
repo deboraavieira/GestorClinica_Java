@@ -12,19 +12,19 @@ import java.util.ArrayList;
  */
 public class Paciente extends Pessoa {
 
-    private long CPF;
+    private String CPF;
 
     public static ArrayList<Paciente> listaPacientes = new ArrayList<>();
 
-    public long getCPF() {
+    public String getCPF() {
         return CPF;
 
     }
-    public void setCPF(long cpf) {
+    public void setCPF(String cpf) {
         CPF = cpf;
     }
 
-    public Paciente(String n, long cpf, String email) {
+    public Paciente(String n, String cpf, String email) {
         Nome = n;
         CPF = cpf;
         Email = email;
