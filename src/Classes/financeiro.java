@@ -4,22 +4,15 @@
  */
 package Classes;
 
-
-
 /**
  *
  * @author deboravieira
  */
-public class Profissional extends Pessoa {
+public class financeiro {
+    public int idservico;
+    public String tipo_servico;
+    public double valor_servico;
+    public String freq_pagamento;
+    
 
-    protected String Registo;
-
-
-    public String getRegisto() {
-        return Registo;
-
-    }
-    public void setRegisto(String registo) {
-        Registo = registo;
-    }    
 }

@@ -3,12 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package gestaoclinicafono.grafica;
-import Classes.Paciente;
+import Classes.Pessoa;
+import Classes.BD;
 import javax.swing.JOptionPane;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 
 /**
  *
@@ -16,9 +13,7 @@ import java.sql.SQLException;
  */
 public class RegistaPaciente extends javax.swing.JFrame {
 
-    private final String CONN_STRING = "jdbc:mysql://localhost:3306/CliniFono?useLegacyDatetimeCode=false&serverTimezone=UTC";
-    private final String CONN_USER = "root";
-    private final String CONN_PASS = "Pipoca123!";
+    private BD bdConn = new BD();
     
     public RegistaPaciente() {
         initComponents();
@@ -226,39 +221,37 @@ public class RegistaPaciente extends javax.swing.JFrame {
         String Data_Nascimento = jFormattedDN_Pac.getText();
         String CPF = jtxt_cpf.getText();
         String Email = jtxt_email.getText();
+        String emailRegex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
+            if (!Email.matches(emailRegex)) {
+                JOptionPane.showMessageDialog(null, "Please enter a valid email address");
+                return;
+            }
         String Telefone = jtxt_telefone.getText();
         String Morada = jtxta_morada.getText();
-        Paciente.listaPacientes.add(new Paciente(Nome,CPF,Email));
-        try {
-            //Class.forName("com.mysql.jdbc.Driver");
-            Connection SQLCnn = DriverManager.getConnection(CONN_STRING, CONN_USER, CONN_PASS);
-
-            System.out.println("Conectado!");
-
-            PreparedStatement stat1 = SQLCnn.prepareStatement("Insert into pacientes (nome_pac,data_nasc,cpf_pac,email_pac,tel_pac,morada_pac) values(?,?,?,?,?,?)");
-
-            stat1.setString(1, Nome);
-            stat1.setString(2, Data_Nascimento);
-            stat1.setString(3, CPF);
-            stat1.setString(4, Email);
-            stat1.setString(5, Telefone);
-            stat1.setString(6, Morada);
-            stat1.executeUpdate();
-
-            stat1.close();
-            SQLCnn.close();
-
-        } catch (SQLException ex) {
-            System.out.println("Erro!" + ex);
+        
+        Pessoa pac = new Pessoa();
+        pac.setNome(Nome);
+        pac.setData_Nascimento(Data_Nascimento);
+        pac.setCPF(CPF);
+        pac.setEmail(Email);
+        pac.setTelefone(Telefone);
+        pac.setMorada(Morada);
+        
+        if (bdConn.RegistaPaciente(pac)){ 
+            JOptionPane.showMessageDialog(null, "Paciente inserido com sucesso!");
+            jtxtNome.setText ("");
+            jFormattedDN_Pac.setText("");
+            jtxt_cpf.setText("");
+            jtxt_email.setText("");
+            jtxt_telefone.setText("");
+            jtxta_morada.setText("");
+        }
+        else {
+            JOptionPane.showMessageDialog(null, "Erro ao inserir paciente","Informação",JOptionPane.OK_OPTION);
         }
         
-         JOptionPane.showMessageDialog(null, "Paciente Inserido!","Informação",JOptionPane.OK_OPTION);
-         jtxtNome.setText ("");
-         jFormattedDN_Pac.setText("");
-         jtxt_cpf.setText("");
-         jtxt_email.setText("");
-         jtxt_telefone.setText("");
-         jtxta_morada.setText("");
+         
+         
         
         
     }//GEN-LAST:event_btn_registarActionPerformed

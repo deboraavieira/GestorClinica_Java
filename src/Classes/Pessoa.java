@@ -14,6 +14,7 @@ public class Pessoa {
     protected String Morada;
     protected String Email;
     protected String Telefone;
+    protected String CPF;
     
     public String getNome(){
         return Nome;
@@ -48,6 +49,13 @@ public class Pessoa {
     public void setMorada(String m){
         Morada = m;
     }
+    public String getCPF(){
+        return CPF;
+    }
+    public void setCPF(String cpf){
+        CPF = cpf;
+    }
+
     
     public Pessoa(){
         Nome = "";
