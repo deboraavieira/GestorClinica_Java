@@ -4,7 +4,17 @@
  */
 package gestaoclinicafono.grafica;
 
-import Classes.BD;
+import java.sql.ResultSetMetaData;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+import Classes.financeiro;
+
 
 
 
@@ -13,17 +23,42 @@ import Classes.BD;
  * @author deboravieira
  */
 public class Financeiro extends javax.swing.JFrame {
+    
+    Connection con = null;
+    PreparedStatement pst=null;
+    ResultSet rs=null;
    
     public Financeiro() {
         initComponents();
+        try{
+            con= DriverManager.getConnection("jdbc:mysql://localhost:3306/CliniFono?useLegacyDatetimeCode=false&serverTimezone=UTC","root","Pipoca123!");
+            pst = con.prepareStatement("Select * from servico");
+            rs = pst.executeQuery();
+            ResultSetMetaData rsmd=rs.getMetaData();
+            int n = rsmd.getColumnCount();
+            DefaultTableModel dtm = (DefaultTableModel)tableservico.getModel();
+            dtm.setRowCount(0);
+            while(rs.next())
+            {
+                Financeiro pag = new Financeiro();
+                for (int i = 1; i<=n;i++)
+                {
+                    //pag.add(rs.getString(1));
+                }
+            }
+            
         
+        }catch(Exception ex){
+            Logger.getLogger(Financeiro.class.getName()).log(Level.SEVERE,null, ex);
+            
+        }
         
     }
-    private BD bdConn = new BD();
+    
 
     
-    private void show_table(){
-        int CC;
+    {
+       
         
     
     }
@@ -40,7 +75,7 @@ public class Financeiro extends javax.swing.JFrame {
         jScrollBar1 = new javax.swing.JScrollBar();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tableservico = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -59,8 +94,8 @@ public class Financeiro extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(173, 216, 230));
 
-        jTable1.setBackground(new java.awt.Color(224, 244, 244));
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tableservico.setBackground(new java.awt.Color(224, 244, 244));
+        tableservico.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -71,7 +106,7 @@ public class Financeiro extends javax.swing.JFrame {
                 "IdServiço", "Serviço", "Valor do Serviço", "Pagamento"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tableservico);
 
         jLabel1.setFont(new java.awt.Font("Charter", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -264,10 +299,10 @@ public class Financeiro extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollBar jScrollBar1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
+    private javax.swing.JTable tableservico;
     // End of variables declaration//GEN-END:variables
 }
