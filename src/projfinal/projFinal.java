@@ -4,6 +4,7 @@
  */
 package projfinal;
 
+import gestaoclinicafono.grafica.Financeiro;
 import gestaoclinicafono.grafica.JFrameMain;
 import gestaoclinicafono.grafica.Login;
 import gestaoclinicafono.grafica.Prontuarios;
@@ -16,22 +17,7 @@ import gestaoclinicafono.grafica.RegistaPaciente;
  */
 public class projFinal {
     public static void main(String[]args){
-         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(RegistaFono.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(RegistaFono.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(RegistaFono.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(RegistaFono.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
+
             
             Login LoginFrame = new Login();
             LoginFrame.setVisible(true);
@@ -47,6 +33,9 @@ public class projFinal {
             
             Prontuarios jfpro = new Prontuarios();
             jfpro.setVisible(true);
+            
+            Financeiro Financeiro = new Financeiro();
+            Financeiro.setVisible(true);
             
         } 
     

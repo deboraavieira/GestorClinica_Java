@@ -3,17 +3,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package gestaoclinicafono.grafica;
-
-import java.sql.ResultSetMetaData;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.table.DefaultTableModel;
+import java.sql.*;
+import Classes.BD;
 import Classes.financeiro;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 
 
@@ -24,45 +20,14 @@ import Classes.financeiro;
  */
 public class Financeiro extends javax.swing.JFrame {
     
-    Connection con = null;
-    PreparedStatement pst=null;
-    ResultSet rs=null;
-   
-    public Financeiro() {
-        initComponents();
-        try{
-            con= DriverManager.getConnection("jdbc:mysql://localhost:3306/CliniFono?useLegacyDatetimeCode=false&serverTimezone=UTC","root","Pipoca123!");
-            pst = con.prepareStatement("Select * from servico");
-            rs = pst.executeQuery();
-            ResultSetMetaData rsmd=rs.getMetaData();
-            int n = rsmd.getColumnCount();
-            DefaultTableModel dtm = (DefaultTableModel)tableservico.getModel();
-            dtm.setRowCount(0);
-            while(rs.next())
-            {
-                Financeiro pag = new Financeiro();
-                for (int i = 1; i<=n;i++)
-                {
-                    //pag.add(rs.getString(1));
-                }
-            }
-            
-        
-        }catch(Exception ex){
-            Logger.getLogger(Financeiro.class.getName()).log(Level.SEVERE,null, ex);
-            
-        }
-        
-    }
-    
-
-    
-    {
+        private final String CONN_STRING = "jdbc:mysql://localhost:3306/CliniFono?useLegacyDatetimeCode=false&serverTimezone=UTC";
+        private final String CONN_USER = "root";
+        private final String CONN_PASS = "Pipoca123!";
        
-        
+    public Financeiro(){
+            initComponents();
     
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -80,32 +45,48 @@ public class Financeiro extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        txtfreqpag = new javax.swing.JTextField();
+        txtnomeserv = new javax.swing.JTextField();
+        txtvalorserv = new javax.swing.JTextField();
+        btn_alterar = new javax.swing.JButton();
+        btn_novo = new javax.swing.JButton();
+        btn_delete = new javax.swing.JButton();
         imageAvatar1 = new test.ImageAvatar();
+        txtidserv = new javax.swing.JTextField();
+        txtProcura = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(173, 216, 230));
 
         tableservico.setBackground(new java.awt.Color(224, 244, 244));
         tableservico.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "IdServiço", "Serviço", "Valor do Serviço", "Pagamento"
+
             }
         ));
+        tableservico.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableservicoMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tableservico);
 
         jLabel1.setFont(new java.awt.Font("Charter", 1, 14)); // NOI18N
@@ -128,33 +109,49 @@ public class Financeiro extends javax.swing.JFrame {
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Frequência de Pagamento:");
 
-        jTextField2.setFont(new java.awt.Font("PT Serif Caption", 0, 12)); // NOI18N
+        txtfreqpag.setFont(new java.awt.Font("PT Serif Caption", 0, 12)); // NOI18N
 
-        jTextField3.setFont(new java.awt.Font("PT Serif Caption", 0, 12)); // NOI18N
+        txtnomeserv.setFont(new java.awt.Font("PT Serif Caption", 0, 12)); // NOI18N
 
-        jTextField4.setFont(new java.awt.Font("PT Serif Caption", 0, 12)); // NOI18N
+        txtvalorserv.setFont(new java.awt.Font("PT Serif Caption", 0, 12)); // NOI18N
 
-        jButton1.setBackground(new java.awt.Color(0, 102, 102));
-        jButton1.setFont(new java.awt.Font("Charter", 1, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Alterar");
+        btn_alterar.setBackground(new java.awt.Color(0, 102, 102));
+        btn_alterar.setFont(new java.awt.Font("Charter", 1, 14)); // NOI18N
+        btn_alterar.setForeground(new java.awt.Color(255, 255, 255));
+        btn_alterar.setText("Alterar");
+        btn_alterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_alterarActionPerformed(evt);
+            }
+        });
 
-        jButton2.setBackground(new java.awt.Color(0, 102, 102));
-        jButton2.setFont(new java.awt.Font("Charter", 1, 14)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Novo");
+        btn_novo.setBackground(new java.awt.Color(0, 102, 102));
+        btn_novo.setFont(new java.awt.Font("Charter", 1, 14)); // NOI18N
+        btn_novo.setForeground(new java.awt.Color(255, 255, 255));
+        btn_novo.setText("Novo");
+        btn_novo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_novoActionPerformed(evt);
+            }
+        });
 
-        jButton3.setBackground(new java.awt.Color(0, 102, 102));
-        jButton3.setFont(new java.awt.Font("Charter", 1, 14)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("Guardar");
-
-        jButton4.setBackground(new java.awt.Color(0, 102, 102));
-        jButton4.setFont(new java.awt.Font("Charter", 1, 14)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jButton4.setText("Cancelar");
+        btn_delete.setBackground(new java.awt.Color(0, 102, 102));
+        btn_delete.setFont(new java.awt.Font("Charter", 1, 14)); // NOI18N
+        btn_delete.setForeground(new java.awt.Color(255, 255, 255));
+        btn_delete.setText("Apagar");
+        btn_delete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_deleteActionPerformed(evt);
+            }
+        });
 
         imageAvatar1.setImage(new javax.swing.ImageIcon(getClass().getResource("/icon/logo.jpg"))); // NOI18N
+
+        txtProcura.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtProcuraKeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -178,58 +175,64 @@ public class Financeiro extends javax.swing.JFrame {
                                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(71, 71, 71)
-                        .addComponent(jButton2)
-                        .addGap(26, 26, 26)
-                        .addComponent(jButton1)
-                        .addGap(29, 29, 29)
-                        .addComponent(jButton3)
-                        .addGap(26, 26, 26)
-                        .addComponent(jButton4))
+                            .addComponent(txtfreqpag, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtnomeserv, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtvalorserv, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtidserv, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(16, 16, 16)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 660, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(20, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(71, 71, 71)
+                .addComponent(btn_novo)
+                .addGap(26, 26, 26)
+                .addComponent(btn_alterar)
+                .addGap(29, 29, 29)
+                .addComponent(btn_delete)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(txtProcura, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(61, 61, 61)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(58, 58, 58)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtidserv)))
                     .addComponent(imageAvatar1, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4))
-                .addGap(26, 26, 26)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(txtnomeserv, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(26, 26, 26)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(txtvalorserv, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(txtfreqpag, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btn_delete)
+                            .addComponent(btn_alterar)
+                            .addComponent(btn_novo, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtProcura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(21, 21, 21)))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jButton1, jButton2, jButton3, jButton4});
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btn_alterar, btn_delete, btn_novo});
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -250,6 +253,146 @@ public class Financeiro extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btn_novoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_novoActionPerformed
+       
+            int idservico = Integer.parseInt(txtidserv.getText());
+            String tipo_servico = txtnomeserv.getText();
+            double valor_servico = Double.parseDouble(txtvalorserv.getText());
+            String freq_pagamento = txtfreqpag.getText();
+        try{
+            Connection SQLCnn = DriverManager.getConnection(CONN_STRING, CONN_USER, CONN_PASS);
+            System.out.println("Conectado!");
+            PreparedStatement stat1 = SQLCnn.prepareStatement("Insert into servico (idservico,tipo_servico,valor_servico,freq_pagamento) "
+                    + "values(?,?,?,?)");
+
+            stat1.setInt(1,idservico);
+            stat1.setString(2,tipo_servico);
+            stat1.setDouble(3,valor_servico);
+            stat1.setString(4,freq_pagamento);
+
+            stat1.executeUpdate();
+
+            
+            stat1.close();        
+            SQLCnn.close();
+            
+            
+       }catch(Exception e){
+           e.printStackTrace();
+       }
+        txtidserv.setText("");
+        txtnomeserv.setText("");
+        txtvalorserv.setText("");
+        txtfreqpag.setText("");
+        carregaTabela();
+    }//GEN-LAST:event_btn_novoActionPerformed
+
+    private void tableservicoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableservicoMouseClicked
+        try{
+            int id = Integer.parseInt(tableservico.getValueAt(tableservico.getSelectedRow(),0).toString());
+            Connection SQLCnn = DriverManager.getConnection(CONN_STRING, CONN_USER, CONN_PASS);
+            System.out.println("Conectado!");
+            Statement st = SQLCnn.createStatement();
+            ResultSet res = st.executeQuery("Select * from servico where idservico="+id);
+            if(res.next()){
+                txtidserv.setText(res.getString("idservico"));
+                txtnomeserv.setText(res.getString("tipo_servico"));
+                txtvalorserv.setText(res.getString("valor_servico"));
+                txtfreqpag.setText(res.getString("freq_pagamento"));
+            }           
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_tableservicoMouseClicked
+    private void carregaTabela(){
+        try{
+            Connection SQLCnn = DriverManager.getConnection(CONN_STRING, CONN_USER, CONN_PASS);
+            System.out.println("Conectado!");
+            Statement st = SQLCnn.createStatement();
+            ResultSet res = st.executeQuery("Select * from servico;");
+            res.last();
+            int row= res.getRow();
+            int col= res.getMetaData().getColumnCount();
+            res.beforeFirst();
+            String rowData[][] = new String[row][col];
+            int r = 0;
+            while(res.next()){
+                for(int i = 0;i<col;i++){
+                    rowData[r][i] = res.getString(i+1);
+                }
+                r++;
+            }
+            String[]columnName = {"Id Serviço","Nome Serviço","Valor Serviço","Freq.Pagamento"};
+            DefaultTableModel model =(DefaultTableModel)tableservico.getModel();
+            model.setDataVector(rowData,columnName);          
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        carregaTabela();
+    }//GEN-LAST:event_formWindowOpened
+
+    private void btn_deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_deleteActionPerformed
+        
+        int id = Integer.parseInt(tableservico.getValueAt(tableservico.getSelectedRow(),0).toString());
+        try{
+            Connection SQLCnn = DriverManager.getConnection(CONN_STRING, CONN_USER, CONN_PASS);
+            System.out.println("Conectado!");
+            Statement st = SQLCnn.createStatement();
+            int r = JOptionPane.showConfirmDialog(this,"Essa ação não poderá ser desfeita, tem certeza que quer realizá-la?");
+            if(r==0){
+            if(!st.execute("Delete from servico where idservico="+id)){
+                formWindowOpened(null);
+            }
+        
+            } 
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_btn_deleteActionPerformed
+
+    private void btn_alterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_alterarActionPerformed
+        try{
+            int id = Integer.parseInt(tableservico.getValueAt(tableservico.getSelectedRow(),0).toString());
+            Connection SQLCnn = DriverManager.getConnection(CONN_STRING, CONN_USER, CONN_PASS);
+            System.out.println("Conectado!");
+            Statement st = SQLCnn.createStatement();
+            st.execute("Update servico set idservico='"+txtidserv.getText()+"',tipo_servico='"+txtnomeserv.getText()+"',valor_servico='"+txtvalorserv.getText()+"',freq_pagamento='"+txtfreqpag.getText()+"' where idservico="+id);
+                    
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        carregaTabela();
+    }//GEN-LAST:event_btn_alterarActionPerformed
+
+    private void txtProcuraKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtProcuraKeyReleased
+       try{
+            Connection SQLCnn = DriverManager.getConnection(CONN_STRING, CONN_USER, CONN_PASS);
+            System.out.println("Conectado!");
+            Statement st = SQLCnn.createStatement();
+            ResultSet res = st.executeQuery("Select * from servico where tipo_servico like '%"+txtProcura.getText()+"%'");
+            res.last();
+            int row= res.getRow();
+            int col= res.getMetaData().getColumnCount();
+            res.beforeFirst();
+            String rowData[][] = new String[row][col];
+            int r = 0;
+            while(res.next()){
+                for(int i = 0;i<col;i++){
+                    rowData[r][i] = res.getString(i+1);
+                }
+                r++;
+            }
+            String[]columnName = {"Id Serviço","Nome Serviço","Valor Serviço","Freq.Pagamento"};
+            DefaultTableModel model =(DefaultTableModel)tableservico.getModel();
+            model.setDataVector(rowData,columnName);          
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_txtProcuraKeyReleased
 
     /**
      * @param args the command line arguments
@@ -287,11 +430,10 @@ public class Financeiro extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_alterar;
+    private javax.swing.JButton btn_delete;
+    private javax.swing.JButton btn_novo;
     private test.ImageAvatar imageAvatar1;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -299,10 +441,11 @@ public class Financeiro extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollBar jScrollBar1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
     private javax.swing.JTable tableservico;
+    private javax.swing.JTextField txtProcura;
+    private javax.swing.JTextField txtfreqpag;
+    private javax.swing.JTextField txtidserv;
+    private javax.swing.JTextField txtnomeserv;
+    private javax.swing.JTextField txtvalorserv;
     // End of variables declaration//GEN-END:variables
 }
