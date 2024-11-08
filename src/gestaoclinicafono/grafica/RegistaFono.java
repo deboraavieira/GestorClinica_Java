@@ -266,7 +266,7 @@ public class RegistaFono extends javax.swing.JFrame {
             Profissional fono = new Profissional();
             fono.setNome(jtxtNome.getText());
             fono.setRegisto(jtxtRegisto.getText());
-            fono.setData_Nascimento(jFormattedDN_Fono.getText());
+            //fono.setData_Nascimento(jFormattedDN_Fono.getText());
             fono.setCPF(jtxt_cpf.getText());
             fono.setEmail(jtxt_email.getText());
             fono.setTelefone(jtxt_telefone.getText());

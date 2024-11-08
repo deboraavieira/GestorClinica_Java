@@ -4,13 +4,15 @@
  */
 package Classes;
 
+import java.util.Date;
+
 /**
  *
  * @author deboravieira
  */
 public class Pessoa {
     protected String Nome;
-    protected String Data_Nascimento;
+    protected Date Data_Nascimento;
     protected String Morada;
     protected String Email;
     protected String Telefone;
@@ -22,12 +24,13 @@ public class Pessoa {
     public void setNome(String n){
         Nome = n;
     }
-    public String getData_Nascimento(){
+    public Date getData_Nascimento(){
         return Data_Nascimento;
     }
-    public void setData_Nascimento(String dn){
-        Data_Nascimento = dn;
+    public void setData_Nascimento(Date data_Nascimento) {
+        this.Data_Nascimento = data_Nascimento;
     }
+
     public String getEmail(){
         return Email;
     }

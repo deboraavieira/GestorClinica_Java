@@ -4,12 +4,13 @@
  */
 package projfinal;
 
+import gestaoclinicafono.grafica.Agendamentos;
 import gestaoclinicafono.grafica.Financeiro;
 import gestaoclinicafono.grafica.JFrameMain;
 import gestaoclinicafono.grafica.Login;
 import gestaoclinicafono.grafica.Prontuarios;
 import gestaoclinicafono.grafica.RegistaFono;
-import gestaoclinicafono.grafica.RegistaPaciente;
+import gestaoclinicafono.grafica.GestaoPaciente;
 
 /**
  *
@@ -25,7 +26,7 @@ public class projFinal {
             JFrameMain jfm2=new JFrameMain();
             jfm2.setVisible(true);
             
-            RegistaPaciente jrp1 = new RegistaPaciente();
+            GestaoPaciente jrp1 = new GestaoPaciente();
             jrp1.setVisible(true);
             
             RegistaFono jrf1 = new RegistaFono();
@@ -36,6 +37,9 @@ public class projFinal {
             
             Financeiro Financeiro = new Financeiro();
             Financeiro.setVisible(true);
+            
+            Agendamentos Agendamento = new Agendamentos();
+            Agendamento.setVisible(true);
             
         } 
     

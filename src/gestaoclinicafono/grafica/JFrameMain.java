@@ -27,8 +27,8 @@ public class JFrameMain extends javax.swing.JFrame {
  private DrawerItem prontuarioItem = new DrawerItem("Prontuário").icon(new ImageIcon(getClass().getResource("/icon/user1.png"))).build();
  private DrawerItem gestaopacItem = new DrawerItem("Gestão de Paciente").icon(new ImageIcon(getClass().getResource("/icon/user1.png"))).build();
  private DrawerItem gestaofItem = new DrawerItem("Gestão de Profissional").icon(new ImageIcon(getClass().getResource("/icon/user1.png"))).build();
-  private DrawerItem pagItem = new DrawerItem("Financeiro").icon(new ImageIcon(getClass().getResource("/icon/user1.png"))).build();
-  private DrawerItem sairItem = new DrawerItem("Sair").icon(new ImageIcon(getClass().getResource("/icon/user1.png"))).build();
+ private DrawerItem pagItem = new DrawerItem("Financeiro").icon(new ImageIcon(getClass().getResource("/icon/user1.png"))).build();
+ private DrawerItem sairItem = new DrawerItem("Sair").icon(new ImageIcon(getClass().getResource("/icon/user1.png"))).build();
  
     public JFrameMain() {
             Login LoginFrame = new Login();
@@ -60,35 +60,40 @@ public class JFrameMain extends javax.swing.JFrame {
          agendaItem.addActionListener(new ActionListener(){
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                 System.exit(0);   
+                 Agendamentos Agendamento = new Agendamentos();
+                    Agendamento.setVisible(true);   
                 }
             
 });
           prontuarioItem.addActionListener(new ActionListener(){
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                 System.exit(0);   
+                 Prontuarios jfpro = new Prontuarios();
+                    jfpro.setVisible(true);   
                 }
             
 });
            gestaopacItem.addActionListener(new ActionListener(){
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                 System.exit(0);   
+                 GestaoPaciente jrp1 = new GestaoPaciente();
+                    jrp1.setVisible(true);   
                 }
             
 });
             gestaofItem.addActionListener(new ActionListener(){
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                 System.exit(0);   
+                 RegistaFono jrf1 = new RegistaFono();
+                    jrf1.setVisible(true);  
                 }
             
 });
              pagItem.addActionListener(new ActionListener(){
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                 System.exit(0);   
+                 Financeiro Financeiro = new Financeiro();  
+                 Financeiro.setVisible(true);
                 }
             
 });

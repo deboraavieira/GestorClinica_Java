@@ -15,7 +15,7 @@ public class agendamento {
     public int idservico;
     public int idfunc;
     public int idpaciente;
-    Date data_hora;
+    Date data;
     public char realizado;
     
 }
