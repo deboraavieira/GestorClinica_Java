@@ -6,7 +6,8 @@
     </Component>
   </NonVisualComponents>
   <Properties>
-    <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="defaultCloseOperation" type="int" value="2"/>
+    <Property name="title" type="java.lang.String" value="Financeiro"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -82,11 +83,11 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="txtfreqpag" min="-2" pref="251" max="-2" attributes="0"/>
-                                      <Component id="txtnomeserv" min="-2" pref="251" max="-2" attributes="0"/>
-                                      <Component id="txtvalorserv" min="-2" pref="251" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="txtnomeserv" pref="251" max="32767" attributes="0"/>
+                                      <Component id="txtvalorserv" pref="251" max="32767" attributes="0"/>
                                       <Component id="txtidserv" min="-2" pref="72" max="-2" attributes="0"/>
+                                      <Component id="txtfreqpag" alignment="0" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
@@ -145,7 +146,7 @@
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtfreqpag" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
+                      <Component id="txtfreqpag" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -235,13 +236,6 @@
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="Frequ&#xea;ncia de Pagamento:"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="txtfreqpag">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="PT Serif Caption" size="12" style="0"/>
-            </Property>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtnomeserv">
@@ -337,6 +331,21 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Buscar:"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="txtfreqpag">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="4">
+                <StringItem index="0" value="Di&#xe1;rio"/>
+                <StringItem index="1" value="Quinzenal"/>
+                <StringItem index="2" value="Semanal"/>
+                <StringItem index="3" value="Mensal"/>
+              </StringArray>
+            </Property>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>

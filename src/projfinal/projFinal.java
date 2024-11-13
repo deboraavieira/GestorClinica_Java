@@ -6,10 +6,10 @@ package projfinal;
 
 import gestaoclinicafono.grafica.Agendamentos;
 import gestaoclinicafono.grafica.Financeiro;
-import gestaoclinicafono.grafica.JFrameMain;
+import gestaoclinicafono.grafica.PagInicial;
 import gestaoclinicafono.grafica.Login;
 import gestaoclinicafono.grafica.Prontuarios;
-import gestaoclinicafono.grafica.RegistaFono;
+import gestaoclinicafono.grafica.GestaoProfissional;
 import gestaoclinicafono.grafica.GestaoPaciente;
 
 /**
@@ -18,28 +18,26 @@ import gestaoclinicafono.grafica.GestaoPaciente;
  */
 public class projFinal {
     public static void main(String[]args){
-
-            
             Login LoginFrame = new Login();
             LoginFrame.setVisible(true);
             
-            JFrameMain jfm2=new JFrameMain();
-            jfm2.setVisible(true);
+            //PagInicial jfm1=new PagInicial();
+            //jfm1.setVisible(true);
             
-            GestaoPaciente jrp1 = new GestaoPaciente();
-            jrp1.setVisible(true);
+            //GestaoPaciente jrp1 = new GestaoPaciente();
+            //jrp1.setVisible(true);
             
-            RegistaFono jrf1 = new RegistaFono();
-            jrf1.setVisible(true);
+            //GestaoProfissional jrf1 = new GestaoProfissional();
+            //jrf1.setVisible(true);
             
-            Prontuarios jfpro = new Prontuarios();
-            jfpro.setVisible(true);
+            //Prontuarios jfpro = new Prontuarios();
+            //jfpro.setVisible(true);
             
-            Financeiro Financeiro = new Financeiro();
-            Financeiro.setVisible(true);
+            //Financeiro Financeiro = new Financeiro();
+            //Financeiro.setVisible(true);
             
-            Agendamentos Agendamento = new Agendamentos();
-            Agendamento.setVisible(true);
+            //Agendamentos Agendamento = new Agendamentos();
+            //Agendamento.setVisible(true);
             
         } 
     

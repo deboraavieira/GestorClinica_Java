@@ -19,20 +19,20 @@ import java.awt.event.*;
  */
 
 
-public class JFrameMain extends javax.swing.JFrame {
+public class PagInicial extends javax.swing.JFrame {
+ String user;
 
  private DrawerController  drawer;
- private DrawerItem inicioItem = new DrawerItem("Início").icon(new ImageIcon(getClass().getResource("/icon/user1.png"))).build();
- private DrawerItem agendaItem = new DrawerItem("Agenda").icon(new ImageIcon(getClass().getResource("/icon/user1.png"))).build();
- private DrawerItem prontuarioItem = new DrawerItem("Prontuário").icon(new ImageIcon(getClass().getResource("/icon/user1.png"))).build();
- private DrawerItem gestaopacItem = new DrawerItem("Gestão de Paciente").icon(new ImageIcon(getClass().getResource("/icon/user1.png"))).build();
- private DrawerItem gestaofItem = new DrawerItem("Gestão de Profissional").icon(new ImageIcon(getClass().getResource("/icon/user1.png"))).build();
- private DrawerItem pagItem = new DrawerItem("Financeiro").icon(new ImageIcon(getClass().getResource("/icon/user1.png"))).build();
- private DrawerItem sairItem = new DrawerItem("Sair").icon(new ImageIcon(getClass().getResource("/icon/user1.png"))).build();
+ private DrawerItem inicioItem = new DrawerItem("Início").icon(new ImageIcon(getClass().getResource("/icon/user32.png"))).build();
+ private DrawerItem agendaItem = new DrawerItem("Agenda").icon(new ImageIcon(getClass().getResource("/icon/contact32.png"))).build();
+ private DrawerItem prontuarioItem = new DrawerItem("Prontuário").icon(new ImageIcon(getClass().getResource("/icon/pront32.png"))).build();
+ private DrawerItem gestaopacItem = new DrawerItem("Gestão de Paciente").icon(new ImageIcon(getClass().getResource("/icon/gp32.png"))).build();
+ private DrawerItem gestaofItem = new DrawerItem("Gestão de Profissional").icon(new ImageIcon(getClass().getResource("/icon/gfn32.png"))).build();
+ private DrawerItem pagItem = new DrawerItem("Financeiro").icon(new ImageIcon(getClass().getResource("/icon/financial32.png"))).build();
+ private DrawerItem sairItem = new DrawerItem("Sair").icon(new ImageIcon(getClass().getResource("/icon/exitn32.png"))).build();
  
-    public JFrameMain() {
-            Login LoginFrame = new Login();
-            LoginFrame.setVisible(true);
+    public PagInicial(String user) {
+        this.user = user;
         initComponents();
         drawer = Drawer.newDrawer(this)
                 .header(new JPanelHeader())
@@ -84,16 +84,26 @@ public class JFrameMain extends javax.swing.JFrame {
             gestaofItem.addActionListener(new ActionListener(){
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                 RegistaFono jrf1 = new RegistaFono();
-                    jrf1.setVisible(true);  
+                    if(user.contains("admin")){
+                        GestaoProfissional jrf1 = new GestaoProfissional();
+                        jrf1.setVisible(true);
+                    }else{
+                        GestaoProfissional jrf1 = new GestaoProfissional();
+                        jrf1.setVisible(false);
+                    }
                 }
             
 });
              pagItem.addActionListener(new ActionListener(){
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                 Financeiro Financeiro = new Financeiro();  
-                 Financeiro.setVisible(true);
+                 if(user.contains("admin")){   
+                    Financeiro Financeiro = new Financeiro();  
+                    Financeiro.setVisible(true);
+                 }else{
+                    Financeiro Financeiro = new Financeiro();  
+                    Financeiro.setVisible(false);
+                 }
                 }
             
 });
@@ -113,10 +123,10 @@ public class JFrameMain extends javax.swing.JFrame {
 
         btn_menu = new javax.swing.JButton();
         calendario = new com.toedter.calendar.JCalendar();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jtxt_dia = new javax.swing.JTextArea();
+        jLabel1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Página Inicial");
 
         btn_menu.setFont(btn_menu.getFont().deriveFont(btn_menu.getFont().getStyle() | java.awt.Font.BOLD, btn_menu.getFont().getSize()+5));
         btn_menu.setText("|||");
@@ -130,9 +140,9 @@ public class JFrameMain extends javax.swing.JFrame {
         calendario.setBackground(new java.awt.Color(208, 244, 240));
         calendario.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(69, 163, 162), 1, true));
 
-        jtxt_dia.setColumns(20);
-        jtxt_dia.setRows(5);
-        jScrollPane1.setViewportView(jtxt_dia);
+        jLabel1.setFont(new java.awt.Font("Charter", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 153, 153));
+        jLabel1.setText("Seja bem vindo(a)!");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -140,27 +150,25 @@ public class JFrameMain extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btn_menu)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 239, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(calendario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 590, Short.MAX_VALUE))
-                        .addGap(116, 116, 116))))
+                .addComponent(btn_menu)
+                .addGap(191, 191, 191)
+                .addComponent(calendario, javax.swing.GroupLayout.PREFERRED_SIZE, 590, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(82, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(258, 258, 258))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btn_menu)
-                .addGap(26, 26, 26)
+                .addGap(40, 40, 40)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(calendario, javax.swing.GroupLayout.PREFERRED_SIZE, 387, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addContainerGap(112, Short.MAX_VALUE))
         );
 
         pack();
@@ -175,46 +183,11 @@ public class JFrameMain extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btn_menuActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JFrameMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JFrameMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JFrameMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JFrameMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new JFrameMain().setVisible(true);
-            }
-        });
-    }
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_menu;
     private com.toedter.calendar.JCalendar calendario;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jtxt_dia;
+    private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }

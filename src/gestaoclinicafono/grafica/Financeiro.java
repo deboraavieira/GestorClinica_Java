@@ -6,8 +6,6 @@ package gestaoclinicafono.grafica;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.*;
-import Classes.BD;
-import Classes.financeiro;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -45,7 +43,6 @@ public class Financeiro extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        txtfreqpag = new javax.swing.JTextField();
         txtnomeserv = new javax.swing.JTextField();
         txtvalorserv = new javax.swing.JTextField();
         btn_alterar = new javax.swing.JButton();
@@ -55,8 +52,10 @@ public class Financeiro extends javax.swing.JFrame {
         txtidserv = new javax.swing.JTextField();
         txtProcura = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
+        txtfreqpag = new javax.swing.JComboBox<>();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Financeiro");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
@@ -110,8 +109,6 @@ public class Financeiro extends javax.swing.JFrame {
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Frequência de Pagamento:");
 
-        txtfreqpag.setFont(new java.awt.Font("PT Serif Caption", 0, 12)); // NOI18N
-
         txtnomeserv.setFont(new java.awt.Font("PT Serif Caption", 0, 12)); // NOI18N
 
         txtvalorserv.setFont(new java.awt.Font("PT Serif Caption", 0, 12)); // NOI18N
@@ -158,6 +155,8 @@ public class Financeiro extends javax.swing.JFrame {
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Buscar:");
 
+        txtfreqpag.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Diário", "Quinzenal", "Semanal", "Mensal" }));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -181,11 +180,11 @@ public class Financeiro extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtfreqpag, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtnomeserv, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtvalorserv, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtidserv, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtnomeserv, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
+                                    .addComponent(txtvalorserv, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
+                                    .addComponent(txtidserv, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtfreqpag, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel5)
@@ -228,7 +227,7 @@ public class Financeiro extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(txtfreqpag, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtfreqpag, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_delete)
@@ -266,7 +265,7 @@ public class Financeiro extends javax.swing.JFrame {
             int idservico = Integer.parseInt(txtidserv.getText());
             String tipo_servico = txtnomeserv.getText();
             double valor_servico = Double.parseDouble(txtvalorserv.getText());
-            String freq_pagamento = txtfreqpag.getText();
+            String freq_pagamento = (String) txtfreqpag.getSelectedItem();
         try{
             Connection SQLCnn = DriverManager.getConnection(CONN_STRING, CONN_USER, CONN_PASS);
             System.out.println("Conectado!");
@@ -291,7 +290,7 @@ public class Financeiro extends javax.swing.JFrame {
         txtidserv.setText("");
         txtnomeserv.setText("");
         txtvalorserv.setText("");
-        txtfreqpag.setText("");
+        txtfreqpag.setSelectedIndex(0);
         carregaTabela();
     }//GEN-LAST:event_btn_novoActionPerformed
 
@@ -306,7 +305,8 @@ public class Financeiro extends javax.swing.JFrame {
                 txtidserv.setText(res.getString("idservico"));
                 txtnomeserv.setText(res.getString("tipo_servico"));
                 txtvalorserv.setText(res.getString("valor_servico"));
-                txtfreqpag.setText(res.getString("freq_pagamento"));
+                String freqPag = res.getString("freq_pagamento");
+                 txtfreqpag.setSelectedItem(freqPag);
             }           
         }catch(Exception e){
             e.printStackTrace();
@@ -359,6 +359,11 @@ public class Financeiro extends javax.swing.JFrame {
         }catch(Exception e){
             e.printStackTrace();
         }
+        txtidserv.setText("");
+        txtnomeserv.setText("");
+        txtvalorserv.setText("");
+        txtfreqpag.setSelectedIndex(0);
+        carregaTabela();
     }//GEN-LAST:event_btn_deleteActionPerformed
 
     private void btn_alterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_alterarActionPerformed
@@ -367,11 +372,19 @@ public class Financeiro extends javax.swing.JFrame {
             Connection SQLCnn = DriverManager.getConnection(CONN_STRING, CONN_USER, CONN_PASS);
             System.out.println("Conectado!");
             Statement st = SQLCnn.createStatement();
-            st.execute("Update servico set idservico='"+txtidserv.getText()+"',tipo_servico='"+txtnomeserv.getText()+"',valor_servico='"+txtvalorserv.getText()+"',freq_pagamento='"+txtfreqpag.getText()+"' where idservico="+id);
+            st.execute("UPDATE servico SET idservico='" + txtidserv.getText() + 
+               "', tipo_servico='" + txtnomeserv.getText() + 
+               "', valor_servico='" + txtvalorserv.getText() + 
+               "', freq_pagamento='" + txtfreqpag.getSelectedItem() +
+               "' WHERE idservico=" + id);
                     
         }catch(Exception e){
             e.printStackTrace();
         }
+        txtidserv.setText("");
+        txtnomeserv.setText("");
+        txtvalorserv.setText("");
+        txtfreqpag.setSelectedIndex(0);
         carregaTabela();
     }//GEN-LAST:event_btn_alterarActionPerformed
 
@@ -451,7 +464,7 @@ public class Financeiro extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tableservico;
     private javax.swing.JTextField txtProcura;
-    private javax.swing.JTextField txtfreqpag;
+    private javax.swing.JComboBox<String> txtfreqpag;
     private javax.swing.JTextField txtidserv;
     private javax.swing.JTextField txtnomeserv;
     private javax.swing.JTextField txtvalorserv;

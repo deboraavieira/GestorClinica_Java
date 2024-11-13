@@ -41,7 +41,8 @@ public class Prontuarios extends javax.swing.JFrame {
         jTextPane1 = new javax.swing.JTextPane();
         jLabel4 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Prontuários");
 
         jPanel1.setBackground(new java.awt.Color(173, 216, 230));
 
