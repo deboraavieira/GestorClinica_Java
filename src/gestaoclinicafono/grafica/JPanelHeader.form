@@ -56,7 +56,7 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="test.ImageAvatar" name="imageAvatar1">
+    <Container class="icon.ImageAvatar" name="imageAvatar1">
       <Properties>
         <Property name="borderSize" type="int" value="3"/>
         <Property name="borderSpace" type="int" value="2"/>

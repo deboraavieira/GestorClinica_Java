@@ -3,7 +3,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package gestaoclinicafono.grafica;
-import Classes.BD;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 
 /**
@@ -11,8 +19,9 @@ import Classes.BD;
  * @author deboravieira
  */
 public class Prontuarios extends javax.swing.JFrame {
-
-    private BD bdConn = new BD();
+        private final String CONN_STRING = "jdbc:mysql://localhost:3306/CliniFono?useLegacyDatetimeCode=false&serverTimezone=UTC";
+        private final String CONN_USER = "root";
+        private final String CONN_PASS = "Pipoca123!";
     public Prontuarios() {
         initComponents();
     }
@@ -26,165 +35,353 @@ public class Prontuarios extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        timePickerLabel1 = new com.raven.swing.TimePickerLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList<>();
         jPanel1 = new javax.swing.JPanel();
-        imageAvatar1 = new test.ImageAvatar();
+        imageAvatar1 = new icon.ImageAvatar();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tableprontuario = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jtxtNome = new javax.swing.JTextField();
-        jFormattedTextCPF = new javax.swing.JFormattedTextField();
-        jLabel3 = new javax.swing.JLabel();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
-        jButton3 = new javax.swing.JButton();
-        btn_eliminar = new javax.swing.JButton();
-        btn_alterar = new javax.swing.JButton();
+        txtProcura = new javax.swing.JTextField();
+        btnatualiza = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextPane1 = new javax.swing.JTextPane();
+        txtpront = new javax.swing.JTextArea();
+        jLabel2 = new javax.swing.JLabel();
+        txtprocurapac = new javax.swing.JTextField();
+        txtprocuraprof = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        txtdataev = new com.toedter.calendar.JDateChooser();
+
+        timePickerLabel1.setText("timePickerLabel1");
+
+        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane1.setViewportView(jList1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Prontuários");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(173, 216, 230));
 
         imageAvatar1.setImage(new javax.swing.ImageIcon(getClass().getResource("/icon/logo.png"))); // NOI18N
 
+        tableprontuario.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        tableprontuario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableprontuarioMouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(tableprontuario);
+
         jLabel1.setFont(new java.awt.Font("Charter", 0, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Nome:");
+        jLabel1.setText("Buscar por agendamento:");
+
+        txtProcura.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtProcuraKeyReleased(evt);
+            }
+        });
+
+        btnatualiza.setBackground(new java.awt.Color(0, 102, 102));
+        btnatualiza.setFont(new java.awt.Font("Charter", 0, 14)); // NOI18N
+        btnatualiza.setText("Atualizar");
+        btnatualiza.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnatualiza.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnatualizaActionPerformed(evt);
+            }
+        });
+
+        txtpront.setColumns(20);
+        txtpront.setRows(5);
+        jScrollPane2.setViewportView(txtpront);
 
         jLabel2.setFont(new java.awt.Font("Charter", 0, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("CPF:");
+        jLabel2.setText("Buscar por profissional:");
 
-        jtxtNome.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtprocurapac.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtprocurapacKeyReleased(evt);
+            }
+        });
 
-        try {
-            jFormattedTextCPF.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        jFormattedTextCPF.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtprocuraprof.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtprocuraprofKeyReleased(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Charter", 0, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Data:");
-
-        jButton3.setBackground(new java.awt.Color(0, 153, 153));
-        jButton3.setFont(new java.awt.Font("Charter", 1, 14)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("Nova Entrada");
-
-        btn_eliminar.setBackground(new java.awt.Color(0, 153, 153));
-        btn_eliminar.setFont(new java.awt.Font("Charter", 1, 14)); // NOI18N
-        btn_eliminar.setForeground(new java.awt.Color(255, 255, 255));
-        btn_eliminar.setText("Apagar");
-
-        btn_alterar.setBackground(new java.awt.Color(0, 153, 153));
-        btn_alterar.setFont(new java.awt.Font("Charter", 1, 14)); // NOI18N
-        btn_alterar.setForeground(new java.awt.Color(255, 255, 255));
-        btn_alterar.setText("Alterar");
-
-        jScrollPane2.setViewportView(jTextPane1);
+        jLabel3.setText("Buscar por paciente:");
 
         jLabel4.setFont(new java.awt.Font("Charter", 0, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Evolução:");
+        jLabel4.setText("Data da Evolução:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton3)
-                .addGap(43, 43, 43)
-                .addComponent(btn_alterar)
-                .addGap(47, 47, 47)
-                .addComponent(btn_eliminar)
-                .addGap(182, 182, 182))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(imageAvatar1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 467, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(349, 349, 349)
+                        .addComponent(btnatualiza, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(imageAvatar1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(37, 37, 37)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jLabel3))
-                        .addGap(25, 25, 25)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jFormattedTextCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jtxtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(24, Short.MAX_VALUE))
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtprocuraprof, javax.swing.GroupLayout.DEFAULT_SIZE, 219, Short.MAX_VALUE)
+                            .addComponent(txtprocurapac)
+                            .addComponent(txtProcura))))
+                .addContainerGap(275, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 26, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 792, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                            .addComponent(jLabel4)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(txtdataev, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(20, 20, 20))
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 792, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(40, 40, 40))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(imageAvatar1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
+                        .addGap(53, 53, 53)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
-                            .addComponent(jtxtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(jFormattedTextCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel3)
-                                .addGap(12, 12, 12)))))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(jLabel4)))
+                            .addComponent(txtProcura, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(txtprocurapac))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_alterar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(343, Short.MAX_VALUE))
+                    .addComponent(txtprocuraprof, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtdataev, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
+                .addComponent(btnatualiza, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+private void carregaTabela(){
+        try{
+            Connection SQLCnn = DriverManager.getConnection(CONN_STRING, CONN_USER, CONN_PASS);
+            System.out.println("Conectado!");
+            Statement st = SQLCnn.createStatement();
+            ResultSet res = st.executeQuery("Select idprontuario, idAgendamento, dataevolucao from prontuarios;");
+            res.last();
+            int row= res.getRow();
+            int col= res.getMetaData().getColumnCount();
+            res.beforeFirst();
+            String rowData[][] = new String[row][col];
+            int r = 0;
+            while(res.next()){
+                for(int i = 0;i<col;i++){
+                    rowData[r][i] = res.getString(i+1);
+                }
+                r++;
+            }
+            String[]columnName = {"Id Prontuário","Id Agendamento","Data da Evolução"};
+            DefaultTableModel model =(DefaultTableModel)tableprontuario.getModel();
+            model.setDataVector(rowData,columnName);          
+        }catch(SQLException e){
+        }
+    }
+    private void tableprontuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableprontuarioMouseClicked
+        try{
+            int id = Integer.parseInt(tableprontuario.getValueAt(tableprontuario.getSelectedRow(),0).toString());
+            Connection SQLCnn = DriverManager.getConnection(CONN_STRING, CONN_USER, CONN_PASS);
+            System.out.println("Conectado!");
+            Statement st = SQLCnn.createStatement();
+            ResultSet res = st.executeQuery("Select evolucao from prontuarios where idprontuario="+id);
+            if(res.next()){
+                txtpront.setText(res.getString("evolucao"));   
+            }           
+        }catch(NumberFormatException | SQLException e){
+        }
+        
+    }//GEN-LAST:event_tableprontuarioMouseClicked
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+       carregaTabela();
+    }//GEN-LAST:event_formWindowOpened
+
+    private void txtProcuraKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtProcuraKeyReleased
+        String procuraid = txtProcura.getText();
+        try {
+            Connection SQLCnn = DriverManager.getConnection(CONN_STRING, CONN_USER, CONN_PASS);
+            System.out.println("Conectado!");
+            Statement st = SQLCnn.createStatement();
+            ResultSet res = st.executeQuery("Select idprontuario, idAgendamento, dataevolucao from prontuarios where idAgendamento like '%" + procuraid + "%'");
+            res.last();
+            int row= res.getRow();
+            int col= res.getMetaData().getColumnCount();
+            res.beforeFirst();
+            String rowData[][] = new String[row][col];
+            int r = 0;
+            while(res.next()){
+                for(int i = 0;i<col;i++){
+                    rowData[r][i] = res.getString(i+1);
+                }
+                r++;
+            }
+            String[]columnName = {"Id Prontuário","Id Agendamento","Data da Evolução"};
+            DefaultTableModel model =(DefaultTableModel)tableprontuario.getModel();
+            model.setDataVector(rowData,columnName);          
+        }catch(SQLException e){
+        }
+    }//GEN-LAST:event_txtProcuraKeyReleased
+
+    private void btnatualizaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnatualizaActionPerformed
+        // Verifica se a data de evolução foi selecionada
+        if (txtdataev.getDate() == null) {
+            JOptionPane.showMessageDialog(null, "Por favor, selecione uma data de evolução.");
+            return; // Interrompe a execução
+        }
+        Date dataevolucao = new Date(txtdataev.getDate().getTime());
+        try {
+            int id = Integer.parseInt(tableprontuario.getValueAt(tableprontuario.getSelectedRow(), 0).toString());
+            Connection SQLCnn = DriverManager.getConnection(CONN_STRING, CONN_USER, CONN_PASS);
+            System.out.println("Conectado!");
+            Statement st = SQLCnn.createStatement();
+
+            // Formatar a data para o formato adequado (yyyy-MM-dd)
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            String dataFormatada = sdf.format(dataevolucao);
+
+            // Correção da sintaxe SQL com a vírgula
+            int rowsAffected = st.executeUpdate("UPDATE prontuarios SET dataevolucao = '" + dataFormatada + "', "
+                                                    + "evolucao = '" + txtpront.getText() + "' WHERE idprontuario = " + id);
+
+            // Verifica se a atualização foi bem-sucedida
+            if (rowsAffected > 0) {
+                JOptionPane.showMessageDialog(null, "Prontuário alterado com sucesso.");
+            } else {
+                JOptionPane.showMessageDialog(null, "Nenhum prontuário encontrado para atualizar.");
+            }
+
+        } catch (NumberFormatException | SQLException e) {
+        }
+        txtdataev.setDate(null);
+        txtpront.setText("");
+        carregaTabela();
+    }//GEN-LAST:event_btnatualizaActionPerformed
+
+    private void txtprocurapacKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtprocurapacKeyReleased
+            String procura = txtprocurapac.getText();
+        try {
+            Connection SQLCnn = DriverManager.getConnection(CONN_STRING, CONN_USER, CONN_PASS);
+            System.out.println("Conectado!");
+            Statement st = SQLCnn.createStatement();
+            ResultSet res = st.executeQuery("""
+                                            select p.idprontuario,p.idAgendamento,p.dataevolucao,p.evolucao from prontuarios as p 
+                                            inner join agendamentos  as a on p.idAgendamento = a.idAgendamento inner join pacientes as pac
+                                            on pac.idpaciente = a.idpaciente where pac.nome_pac like  '%""" + procura + "%'");
+            res.last();
+            int row= res.getRow();
+            int col= res.getMetaData().getColumnCount();
+            res.beforeFirst();
+            String rowData[][] = new String[row][col];
+            int r = 0;
+            while(res.next()){
+                for(int i = 0;i<col;i++){
+                    rowData[r][i] = res.getString(i+1);
+                }
+                r++;
+            }
+            String[]columnName = {"Id Prontuário","Id Agendamento","Data da Evolução"};
+            DefaultTableModel model =(DefaultTableModel)tableprontuario.getModel();
+            model.setDataVector(rowData,columnName);          
+        }catch(SQLException e){
+        }
+    }//GEN-LAST:event_txtprocurapacKeyReleased
+
+    private void txtprocuraprofKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtprocuraprofKeyReleased
+        String procura = txtprocuraprof.getText();
+        try {
+            Connection SQLCnn = DriverManager.getConnection(CONN_STRING, CONN_USER, CONN_PASS);
+            System.out.println("Conectado!");
+            Statement st = SQLCnn.createStatement();
+            ResultSet res = st.executeQuery("""
+                                            Select p.idprontuario,p.idAgendamento,p.dataevolucao,p.evolucao from prontuarios as p inner join agendamentos  as a 
+                                            on p.idAgendamento = a.idAgendamento inner join funcionarios as f
+                                            on f.idfunc = a.idfunc where f.nome_func like '%""" + procura + "%'");
+            res.last();
+            int row= res.getRow();
+            int col= res.getMetaData().getColumnCount();
+            res.beforeFirst();
+            String rowData[][] = new String[row][col];
+            int r = 0;
+            while(res.next()){
+                for(int i = 0;i<col;i++){
+                    rowData[r][i] = res.getString(i+1);
+                }
+                r++;
+            }
+            String[]columnName = {"Id Prontuário","Id Agendamento","Data da Evolução"};
+            DefaultTableModel model =(DefaultTableModel)tableprontuario.getModel();
+            model.setDataVector(rowData,columnName);          
+        }catch(SQLException e){
+        } 
+    }//GEN-LAST:event_txtprocuraprofKeyReleased
 
     /**
      * @param args the command line arguments
@@ -223,19 +420,23 @@ public class Prontuarios extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_alterar;
-    private javax.swing.JButton btn_eliminar;
-    private test.ImageAvatar imageAvatar1;
-    private javax.swing.JButton jButton3;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
-    private javax.swing.JFormattedTextField jFormattedTextCPF;
+    private javax.swing.JButton btnatualiza;
+    private icon.ImageAvatar imageAvatar1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JList<String> jList1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextPane jTextPane1;
-    private javax.swing.JTextField jtxtNome;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTable tableprontuario;
+    private com.raven.swing.TimePickerLabel timePickerLabel1;
+    private javax.swing.JTextField txtProcura;
+    private com.toedter.calendar.JDateChooser txtdataev;
+    private javax.swing.JTextField txtprocurapac;
+    private javax.swing.JTextField txtprocuraprof;
+    private javax.swing.JTextArea txtpront;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,4 +1,4 @@
-package test;
+package icon;
 
 import java.awt.AlphaComposite;
 import java.awt.Color;

@@ -14,7 +14,6 @@ public class prontuario {
    public int idprontuario;
    public int idAgendamento;
    public String evolucao;
-    Date dataevolucao;
-   
+   public Date dataevolucao;
            
 }

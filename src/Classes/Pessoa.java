@@ -3,7 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Classes;
-
 import java.util.Date;
 
 /**
@@ -30,7 +29,6 @@ public class Pessoa {
     public void setData_Nascimento(Date data_Nascimento) {
         this.Data_Nascimento = data_Nascimento;
     }
-
     public String getEmail(){
         return Email;
     }
@@ -58,8 +56,6 @@ public class Pessoa {
     public void setCPF(String cpf){
         CPF = cpf;
     }
-
-    
     public Pessoa(){
         Nome = "";
         Email = "";

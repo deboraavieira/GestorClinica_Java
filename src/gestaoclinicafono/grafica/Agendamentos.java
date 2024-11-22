@@ -40,15 +40,13 @@ public class Agendamentos extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        imageAvatar1 = new test.ImageAvatar();
+        imageAvatar1 = new icon.ImageAvatar();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         txtidserv = new javax.swing.JTextField();
-        txtagendamento = new javax.swing.JTextField();
         txtidpac = new javax.swing.JTextField();
         txtidfunc = new javax.swing.JTextField();
         txtrealizado = new javax.swing.JTextField();
@@ -59,8 +57,9 @@ public class Agendamentos extends javax.swing.JFrame {
         btnNovo = new javax.swing.JButton();
         btnAlterar = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
-        jtime = new com.github.lgooddatepicker.components.TimePicker();
         jLabel8 = new javax.swing.JLabel();
+        txtProcura = new javax.swing.JTextField();
+        jtime = new com.github.lgooddatepicker.components.TimePicker();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Agendamentos");
@@ -75,33 +74,29 @@ public class Agendamentos extends javax.swing.JFrame {
 
         imageAvatar1.setImage(new javax.swing.ImageIcon(getClass().getResource("/icon/logo.jpg"))); // NOI18N
 
-        jLabel1.setText("Buscar:");
         jLabel1.setFont(new java.awt.Font("Charter", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Buscar:");
 
-        jLabel2.setText("Id Agendamento:");
-        jLabel2.setFont(new java.awt.Font("Charter", 1, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-
-        jLabel3.setText("Id Serviço:");
         jLabel3.setFont(new java.awt.Font("Charter", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Id Serviço:");
 
-        jLabel4.setText("Id Paciente:");
         jLabel4.setFont(new java.awt.Font("Charter", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Id Paciente:");
 
-        jLabel5.setText("Id Funcionário:");
         jLabel5.setFont(new java.awt.Font("Charter", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("Id Funcionário:");
 
-        jLabel6.setText("Realizado?(S/N)");
         jLabel6.setFont(new java.awt.Font("Charter", 1, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("Realizado?(S/N)");
 
-        jLabel7.setText("Data:");
         jLabel7.setFont(new java.awt.Font("Charter", 1, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("Data:");
 
         tableagenda.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -121,39 +116,42 @@ public class Agendamentos extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tableagenda);
 
-        btnNovo.setText("Novo");
-        btnNovo.setBackground(new java.awt.Color(68, 175, 175));
+        btnNovo.setBackground(new java.awt.Color(0, 102, 102));
         btnNovo.setFont(new java.awt.Font("PT Serif Caption", 0, 14)); // NOI18N
-        btnNovo.setForeground(new java.awt.Color(255, 255, 255));
+        btnNovo.setText("Novo");
         btnNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNovoActionPerformed(evt);
             }
         });
 
-        btnAlterar.setText("Alterar");
-        btnAlterar.setBackground(new java.awt.Color(68, 175, 175));
+        btnAlterar.setBackground(new java.awt.Color(0, 102, 102));
         btnAlterar.setFont(new java.awt.Font("PT Serif Caption", 0, 14)); // NOI18N
-        btnAlterar.setForeground(new java.awt.Color(255, 255, 255));
+        btnAlterar.setText("Alterar");
         btnAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAlterarActionPerformed(evt);
             }
         });
 
-        btnDelete.setText("Apagar");
-        btnDelete.setBackground(new java.awt.Color(68, 175, 175));
+        btnDelete.setBackground(new java.awt.Color(0, 102, 102));
         btnDelete.setFont(new java.awt.Font("PT Serif Caption", 0, 14)); // NOI18N
-        btnDelete.setForeground(new java.awt.Color(255, 255, 255));
+        btnDelete.setText("Apagar");
         btnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDeleteActionPerformed(evt);
             }
         });
 
-        jLabel8.setText("Horário:");
         jLabel8.setFont(new java.awt.Font("Charter", 0, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("Horário:");
+
+        txtProcura.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtProcuraKeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -161,54 +159,57 @@ public class Agendamentos extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(imageAvatar1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(imageAvatar1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(159, 159, 159)
+                        .addComponent(btnNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(48, 48, 48)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel1)
-                                .addGap(258, 258, 258))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(29, 29, 29)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jLabel5))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtagendamento, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtrealizado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtidfunc, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(40, 40, 40)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel7)
-                                    .addComponent(jLabel4)
+                                .addGap(25, 25, 25)
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtidpac, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
                                     .addComponent(jLabel3)
-                                    .addComponent(jLabel8))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtdata, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtidpac, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtidserv, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jtime, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addContainerGap(111, Short.MAX_VALUE))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(txtidserv, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(txtidfunc, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(45, 45, 45)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel6))
+                        .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 738, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(27, 27, 27))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(btnNovo)
-                                .addGap(32, 32, 32)
-                                .addComponent(btnAlterar)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnDelete)
-                                .addGap(239, 239, 239))))))
+                            .addComponent(txtdata, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jtime, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtrealizado, javax.swing.GroupLayout.Alignment.LEADING)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(54, 54, 54)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 738, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 64, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtProcura, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25))
         );
 
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel2, jLabel3, jLabel4, jLabel5, jLabel6, jLabel7, txtagendamento, txtdata, txtidfunc, txtidpac, txtidserv, txtrealizado});
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel6, txtidfunc, txtidpac, txtidserv, txtrealizado});
 
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -216,61 +217,60 @@ public class Agendamentos extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(imageAvatar1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(jLabel1)
-                        .addGap(29, 29, 29)
+                        .addComponent(imageAvatar1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addContainerGap(50, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txtidpac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel4))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel3)
+                                    .addComponent(txtidserv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel5)
+                                    .addComponent(txtidfunc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel7)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel2)
-                                        .addGap(30, 30, 30)
-                                        .addComponent(jLabel5))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(txtdata, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(txtagendamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel3))
-                                        .addGap(25, 25, 25)
+                                            .addComponent(jLabel8)
+                                            .addComponent(jtime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(18, 18, 18)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(txtidfunc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel4))))
-                                .addGap(23, 23, 23)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel6)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(txtrealizado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel7))))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(txtidserv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(25, 25, 25)
-                                .addComponent(txtidpac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(23, 23, 23)
-                                .addComponent(txtdata, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(26, 26, 26)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jtime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 120, Short.MAX_VALUE)
+                                            .addComponent(txtrealizado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel6))))))
+                        .addGap(18, 18, 18)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnNovo)
-                    .addComponent(btnAlterar)
-                    .addComponent(btnDelete))
-                .addGap(27, 27, 27)
+                    .addComponent(txtProcura, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addGap(29, 29, 29)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(31, 31, 31)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(68, 68, 68))
+                .addGap(35, 35, 35))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -300,93 +300,100 @@ private void carregaTabela(){
         }
     }
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
-            int idAgendamento = Integer.parseInt(txtagendamento.getText());
-            Date data = new Date(txtdata.getDate().getTime()); // Obtém a data do JDateChooser e converte para java.sql.Date
-            LocalTime hora = jtime.getTime();
-            int idpaciente = Integer.parseInt(txtidpac.getText());
-            int idfunc = Integer.parseInt(txtidfunc.getText());
-            int idservico = Integer.parseInt(txtidserv.getText());
-            String realizado = txtrealizado.getText();
 
-            try {
-                Connection SQLCnn = DriverManager.getConnection(CONN_STRING, CONN_USER, CONN_PASS);
+        Date data = new Date(txtdata.getDate().getTime()); // Obtém a data do JDateChooser e converte para java.sql.Date
+        LocalTime hora = jtime.getTime(); // Obtém a hora do JTimePiker e converte para java.sql.Date
+        int idpaciente = Integer.parseInt(txtidpac.getText());
+        int idfunc = Integer.parseInt(txtidfunc.getText());
+        int idservico = Integer.parseInt(txtidserv.getText());
+        String realizado = txtrealizado.getText();
+
+        try{ 
+            Connection SQLCnn = DriverManager.getConnection(CONN_STRING, CONN_USER, CONN_PASS);
+             PreparedStatement stat1 = SQLCnn.prepareStatement("INSERT INTO agendamentos (data, hora, idpaciente, idfunc, idservico, realizado) "
+                     + "VALUES (?, ?, ?, ?, ?, ?)"); 
+
                 System.out.println("Conectado!");
 
-                PreparedStatement stat1 = SQLCnn.prepareStatement("INSERT INTO agendamentos (idAgendamento, data, hora, idpaciente, idfunc, idservico, realizado) "
-                        + "VALUES (?, ?, ?, ?, ?, ?, ?)");
-
-                stat1.setInt(1, idAgendamento);
-                stat1.setDate(2,data); 
-                stat1.setTime(3, Time.valueOf(hora));
-                stat1.setInt(4, idpaciente);
-                stat1.setInt(5, idfunc);
-                stat1.setInt(6, idservico);
-                stat1.setString(7, realizado);
+                stat1.setDate(1, new java.sql.Date(data.getTime()));
+                var horaAdicionada = hora.plusMinutes(60); //ajuste necessário para o componente funcionar corretamente
+                stat1.setTime(2, Time.valueOf(horaAdicionada));
+                stat1.setInt(3, idpaciente);
+                stat1.setInt(4, idfunc);
+                stat1.setInt(5, idservico);
+                stat1.setString(6, realizado);
 
                 stat1.executeUpdate();
 
-                stat1.close();
-                SQLCnn.close();
-
-                JOptionPane.showMessageDialog(null, "Agendamento inserido com sucesso!");
-
-            } catch (SQLException e) {
+                // Cria um prontuário associado a esse agendamento
+                try (Statement stat2 = SQLCnn.createStatement();
+                     ResultSet res = stat2.executeQuery("Select idAgendamento from agendamentos order by idAgendamento desc limit 1;")) {
+                    res.next();
+                    int idAgendamento = res.getInt("idAgendamento");
+                    try (PreparedStatement stat3 = SQLCnn.prepareStatement("INSERT INTO prontuarios (idAgendamento, dataevolucao, evolucao) VALUES (?,?,?)")) {
+                        stat3.setInt(1, idAgendamento);
+                        stat3.setDate(2, new java.sql.Date(System.currentTimeMillis())); // Data atual para a evolução
+                        stat3.setString(3, "Prontuário gerado automaticamente para o agendamento."); // Texto padrão para o prontuário
+                        stat3.executeUpdate();
+                    }
+                }
+                JOptionPane.showMessageDialog(null, "Agendamento e prontuário inseridos com sucesso!");
+        } catch (SQLException e) { 
                 JOptionPane.showMessageDialog(null, "Erro ao inserir agendamento: " + e.getMessage());
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Erro na conversão de números: " + e.getMessage());
             }
-            txtagendamento.setText("");
-            txtdata.setDate(null);
-            jtime.setTimeToNow();
-            txtidfunc.setText("");
-            txtidpac.setText("");
-            txtidserv.setText("");
-            txtrealizado.setText("");
-            carregaTabela();
+
+        txtdata.setDate(null);
+        jtime.setTimeToNow();
+        txtidfunc.setText("");
+        txtidpac.setText("");
+        txtidserv.setText("");
+        txtrealizado.setText("");
+        carregaTabela();
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-                                           
-            if (tableagenda.getSelectedRow() == -1) {
-                JOptionPane.showMessageDialog(null, "Selecione um agendamento para alterar.");
-                return;
-            }
+    
+    if (tableagenda.getSelectedRow() == -1) {
+        JOptionPane.showMessageDialog(null, "Selecione um agendamento para alterar.");
+            return;
+    }
+    
+    if (txtdata.getDate() == null) {
+        JOptionPane.showMessageDialog(null, "Por favor, selecione uma data.");
+            return;
+    }
+    
+    int idAgendamento = Integer.parseInt(tableagenda.getValueAt(tableagenda.getSelectedRow(), 0).toString());
+        try{
+            Connection SQLCnn = DriverManager.getConnection(CONN_STRING, CONN_USER, CONN_PASS);
+             PreparedStatement stat = SQLCnn.prepareStatement("UPDATE agendamentos SET data = ?, hora = ?, idpaciente = ?, idfunc = ?, idservico = ?, realizado = ? "
+                     + "WHERE idAgendamento = ?");
 
-            if (txtdata.getDate() == null) {
-                JOptionPane.showMessageDialog(null, "Por favor, selecione uma data.");
-                return;
-            }
+            stat.setDate(1, new java.sql.Date(txtdata.getDate().getTime())); // Data
+            stat.setTime(2, Time.valueOf(jtime.getTime().plusMinutes(60))); //ajuste necessário para o componente TimePicker funcionar corretamente
+            stat.setInt(3, Integer.parseInt(txtidpac.getText())); // ID do paciente
+            stat.setInt(4, Integer.parseInt(txtidfunc.getText())); // ID do funcionário
+            stat.setInt(5, Integer.parseInt(txtidserv.getText())); // ID do serviço
+            stat.setString(6, txtrealizado.getText()); // Realizado
+            stat.setInt(7, idAgendamento); // ID do agendamento
+            stat.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Agendamento alterado com sucesso!");
+        }catch (SQLException e) { 
+ 
+            JOptionPane.showMessageDialog(null, "Erro ao alterar agendamento: " + e.getMessage());
+        }catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Erro na conversão de números: " + e.getMessage());
+        }
 
-            int idAgendamento = Integer.parseInt(tableagenda.getValueAt(tableagenda.getSelectedRow(), 0).toString());
-            try (Connection SQLCnn = DriverManager.getConnection(CONN_STRING, CONN_USER, CONN_PASS)) {
-                String sql = "UPDATE agendamentos SET data = ?,hora = ?, idpaciente = ?, idfunc = ?, idservico = ?, realizado = ? WHERE idAgendamento = ?";
-
-                try (PreparedStatement stat = SQLCnn.prepareStatement(sql)) {
-                     stat.setDate(1, new java.sql.Date(txtdata.getDate().getTime())); // Data
-                     LocalTime hora = jtime.getTime();
-                     stat.setTime(2, Time.valueOf(hora)); // Converte LocalTime para java.sql.Time
-                     stat.setInt(3, Integer.parseInt(txtidpac.getText())); // ID do paciente
-                     stat.setInt(4, Integer.parseInt(txtidfunc.getText())); // ID do funcionário
-                     stat.setInt(5, Integer.parseInt(txtidserv.getText())); // ID do serviço
-                     stat.setString(6, txtrealizado.getText()); // Realizado
-                     stat.setInt(7, idAgendamento); // ID do agendamento
-                     stat.executeUpdate();
-                    JOptionPane.showMessageDialog(null, "Agendamento alterado com sucesso!");
-                }
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, "Erro ao alterar agendamento: " + e.getMessage());
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Erro na conversão de números: " + e.getMessage());
-            }
-            
-            txtagendamento.setText("");
-            txtdata.setDate(null);
-            jtime.setTimeToNow();
-            txtidfunc.setText("");
-            txtidpac.setText("");
-            txtidserv.setText("");
-            txtrealizado.setText("");
-            carregaTabela();
+        txtdata.setDate(null);
+        jtime.setTimeToNow();
+        txtidfunc.setText("");
+        txtidpac.setText("");
+        txtidserv.setText("");
+        txtrealizado.setText("");
+        carregaTabela();
 
     }//GEN-LAST:event_btnAlterarActionPerformed
 
@@ -406,7 +413,7 @@ private void carregaTabela(){
             } 
         }catch(HeadlessException | NumberFormatException | SQLException e){
         }
-            txtagendamento.setText("");
+           
             txtdata.setDate(null);
             jtime.setTimeToNow();
             txtidfunc.setText("");
@@ -428,9 +435,9 @@ private void carregaTabela(){
             Statement st = SQLCnn.createStatement();
             ResultSet res = st.executeQuery("Select * from agendamentos where idAgendamento="+id);
             if(res.next()){
-                txtagendamento.setText(res.getString("idAgendamento"));
+                var horaSubtraida = res.getTime("hora").toLocalTime().minusMinutes(60); //ajuste necessário para o componente funcionar corretamente
                 txtdata.setDate(res.getDate("data"));
-                jtime.setTime(res.getTime("hora").toLocalTime());
+                jtime.setTime(horaSubtraida);
                 txtidfunc.setText(res.getString("idfunc"));
                 txtidpac.setText(res.getString("idpaciente"));
                 txtidserv.setText(res.getString("idservico"));
@@ -439,6 +446,32 @@ private void carregaTabela(){
         }catch(NumberFormatException | SQLException e){
         }
     }//GEN-LAST:event_tableagendaMouseClicked
+
+    private void txtProcuraKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtProcuraKeyReleased
+         try{
+            Connection SQLCnn = DriverManager.getConnection(CONN_STRING, CONN_USER, CONN_PASS);
+            System.out.println("Conectado!");
+            Statement st = SQLCnn.createStatement();
+            ResultSet res = st.executeQuery("select a.idAgendamento,a.data,a.hora,a.idpaciente,a.idfunc,a.idservico,a.realizado from agendamentos as a "
+                                             + "inner join funcionarios as f on f.idfunc = a.idfunc where f.nome_func like '%" + txtProcura.getText() + "%'");
+            res.last();
+            int row= res.getRow();
+            int col= res.getMetaData().getColumnCount();
+            res.beforeFirst();
+            String rowData[][] = new String[row][col];
+            int r = 0;
+            while(res.next()){
+                for(int i = 0;i<col;i++){
+                    rowData[r][i] = res.getString(i+1);
+                }
+                r++;
+            }
+             String[]columnName = {"Id Agendamento","Data","Horário","Id Paciente","Id Funcionário","Id Serviço","Realizado(S/N)"};
+            DefaultTableModel model =(DefaultTableModel)tableagenda.getModel();
+            model.setDataVector(rowData,columnName);          
+        }catch(SQLException e){
+        }
+    }//GEN-LAST:event_txtProcuraKeyReleased
 
     /**
      * @param args the command line arguments
@@ -479,9 +512,8 @@ private void carregaTabela(){
     private javax.swing.JButton btnAlterar;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnNovo;
-    private test.ImageAvatar imageAvatar1;
+    private icon.ImageAvatar imageAvatar1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -492,7 +524,7 @@ private void carregaTabela(){
     private javax.swing.JScrollPane jScrollPane1;
     private com.github.lgooddatepicker.components.TimePicker jtime;
     private javax.swing.JTable tableagenda;
-    private javax.swing.JTextField txtagendamento;
+    private javax.swing.JTextField txtProcura;
     private com.toedter.calendar.JDateChooser txtdata;
     private javax.swing.JTextField txtidfunc;
     private javax.swing.JTextField txtidpac;

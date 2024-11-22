@@ -3,14 +3,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package gestaoclinicafono.grafica;
+import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.*;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-
-
-
 
 /**
  *
@@ -48,7 +46,7 @@ public class Financeiro extends javax.swing.JFrame {
         btn_alterar = new javax.swing.JButton();
         btn_novo = new javax.swing.JButton();
         btn_delete = new javax.swing.JButton();
-        imageAvatar1 = new test.ImageAvatar();
+        imageAvatar1 = new icon.ImageAvatar();
         txtidserv = new javax.swing.JTextField();
         txtProcura = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
@@ -115,7 +113,6 @@ public class Financeiro extends javax.swing.JFrame {
 
         btn_alterar.setBackground(new java.awt.Color(0, 102, 102));
         btn_alterar.setFont(new java.awt.Font("Charter", 1, 14)); // NOI18N
-        btn_alterar.setForeground(new java.awt.Color(255, 255, 255));
         btn_alterar.setText("Alterar");
         btn_alterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -125,7 +122,6 @@ public class Financeiro extends javax.swing.JFrame {
 
         btn_novo.setBackground(new java.awt.Color(0, 102, 102));
         btn_novo.setFont(new java.awt.Font("Charter", 1, 14)); // NOI18N
-        btn_novo.setForeground(new java.awt.Color(255, 255, 255));
         btn_novo.setText("Novo");
         btn_novo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -135,7 +131,6 @@ public class Financeiro extends javax.swing.JFrame {
 
         btn_delete.setBackground(new java.awt.Color(0, 102, 102));
         btn_delete.setFont(new java.awt.Font("Charter", 1, 14)); // NOI18N
-        btn_delete.setForeground(new java.awt.Color(255, 255, 255));
         btn_delete.setText("Apagar");
         btn_delete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -284,8 +279,7 @@ public class Financeiro extends javax.swing.JFrame {
             SQLCnn.close();
             
             
-       }catch(Exception e){
-           e.printStackTrace();
+       }catch(SQLException e){
        }
         txtidserv.setText("");
         txtnomeserv.setText("");
@@ -308,8 +302,7 @@ public class Financeiro extends javax.swing.JFrame {
                 String freqPag = res.getString("freq_pagamento");
                  txtfreqpag.setSelectedItem(freqPag);
             }           
-        }catch(Exception e){
-            e.printStackTrace();
+        }catch(NumberFormatException | SQLException e){
         }
     }//GEN-LAST:event_tableservicoMouseClicked
     private void carregaTabela(){
@@ -333,8 +326,7 @@ public class Financeiro extends javax.swing.JFrame {
             String[]columnName = {"Id Serviço","Nome Serviço","Valor Serviço","Freq.Pagamento"};
             DefaultTableModel model =(DefaultTableModel)tableservico.getModel();
             model.setDataVector(rowData,columnName);          
-        }catch(Exception e){
-            e.printStackTrace();
+        }catch(SQLException e){
         }
     }
     
@@ -356,8 +348,7 @@ public class Financeiro extends javax.swing.JFrame {
             }
         
             } 
-        }catch(Exception e){
-            e.printStackTrace();
+        }catch(HeadlessException | SQLException e){
         }
         txtidserv.setText("");
         txtnomeserv.setText("");
@@ -378,8 +369,7 @@ public class Financeiro extends javax.swing.JFrame {
                "', freq_pagamento='" + txtfreqpag.getSelectedItem() +
                "' WHERE idservico=" + id);
                     
-        }catch(Exception e){
-            e.printStackTrace();
+        }catch(NumberFormatException | SQLException e){
         }
         txtidserv.setText("");
         txtnomeserv.setText("");
@@ -409,8 +399,7 @@ public class Financeiro extends javax.swing.JFrame {
             String[]columnName = {"Id Serviço","Nome Serviço","Valor Serviço","Freq.Pagamento"};
             DefaultTableModel model =(DefaultTableModel)tableservico.getModel();
             model.setDataVector(rowData,columnName);          
-        }catch(Exception e){
-            e.printStackTrace();
+        }catch(SQLException e){
         }
     }//GEN-LAST:event_txtProcuraKeyReleased
 
@@ -453,7 +442,7 @@ public class Financeiro extends javax.swing.JFrame {
     private javax.swing.JButton btn_alterar;
     private javax.swing.JButton btn_delete;
     private javax.swing.JButton btn_novo;
-    private test.ImageAvatar imageAvatar1;
+    private icon.ImageAvatar imageAvatar1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -4,6 +4,7 @@
  */
 package Classes;
 
+import java.time.LocalTime;
 import java.util.Date;
 
 /**
@@ -15,7 +16,8 @@ public class agendamento {
     public int idservico;
     public int idfunc;
     public int idpaciente;
-    Date data;
+    public Date data;
+    public LocalTime hora;
     public char realizado;
     
 }

@@ -13,14 +13,12 @@ public class Login extends javax.swing.JFrame {
     public Login() {
         initComponents();
     }
-
-
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
         right = new javax.swing.JPanel();
-        imageAvatar1 = new test.ImageAvatar();
+        imageAvatar1 = new icon.ImageAvatar();
         jLabel4 = new javax.swing.JLabel();
         Left = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -89,9 +87,8 @@ public class Login extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("AppleMyungjo", 3, 15)); // NOI18N
         jLabel3.setText("Password");
 
-        btn_login.setBackground(new java.awt.Color(68, 175, 175));
+        btn_login.setBackground(new java.awt.Color(0, 102, 102));
         btn_login.setFont(new java.awt.Font("PT Serif Caption", 0, 14)); // NOI18N
-        btn_login.setForeground(new java.awt.Color(255, 255, 255));
         btn_login.setText("Login");
         btn_login.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -106,9 +103,8 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        btn_exit.setBackground(new java.awt.Color(68, 175, 175));
+        btn_exit.setBackground(new java.awt.Color(0, 102, 102));
         btn_exit.setFont(new java.awt.Font("PT Serif Caption", 0, 14)); // NOI18N
-        btn_exit.setForeground(new java.awt.Color(255, 255, 255));
         btn_exit.setText("Exit");
         btn_exit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -202,7 +198,6 @@ public class Login extends javax.swing.JFrame {
         else{
             JOptionPane.showMessageDialog(null, "Username ou Password errados!","Message",JOptionPane.ERROR_MESSAGE);
         }    
-        
     }//GEN-LAST:event_btn_loginActionPerformed
 
     private void jcshow_passwordItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcshow_passwordItemStateChanged
@@ -258,7 +253,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JPanel Left;
     private javax.swing.JButton btn_exit;
     private javax.swing.JButton btn_login;
-    private test.ImageAvatar imageAvatar1;
+    private icon.ImageAvatar imageAvatar1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
